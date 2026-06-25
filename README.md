@@ -32,7 +32,7 @@ store them in the .env file.
 
 # View OpenAPI schema
 
-Start a swagger server that serves the specification dokcumentation:
+Start a swagger server that serves the specification documentation:
 
     docker run -p 8080:8080 -e SWAGGER_JSON=/schema.yml -v ${PWD}/schema.yml:/schema.yml swaggerapi/swagger-ui
 
