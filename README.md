@@ -7,7 +7,11 @@ the API.
 The API does not provide any guarantees about stability and will break
 backwards compatibility.
 
-# Obtain credentials
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md)
+
+## Obtain credentials
 
 Create the .env file
 
@@ -16,7 +20,7 @@ Create the .env file
 Create API credentials at https://connect.roestcoffee.com/settings/api and
 store them in the .env file.
 
-# Run example code
+## Run example code
 
     python3 -m venv .venv
     source .venv/bin/activate
@@ -30,7 +34,7 @@ store them in the .env file.
 
     ./run.sh create_profile.py
 
-# View OpenAPI schema
+## View OpenAPI schema
 
 Start a swagger server that serves the specification documentation:
 
