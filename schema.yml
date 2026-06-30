@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: ''
-  version: 0.0.0
+  title: ROEST Connect API
+  version: '1.0'
 paths:
   /applications/:
     get:
@@ -33,6 +33,9 @@ paths:
           type: string
       tags:
       - applications
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -61,6 +64,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/OAuthApplication'
+      security:
+      - oauth2:
+        - write
       responses:
         '201':
           content:
@@ -80,6 +86,9 @@ paths:
         required: true
       tags:
       - applications
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -98,6 +107,9 @@ paths:
         required: true
       tags:
       - applications
+      security:
+      - oauth2:
+        - write
       responses:
         '204':
           description: No response body
@@ -133,8 +145,16 @@ paths:
         description: A search term.
         schema:
           type: string
+      - in: query
+        name: share_uuid
+        schema:
+          type: string
+          format: uuid
       tags:
       - comments
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -158,6 +178,9 @@ paths:
             schema:
               $ref: '#/components/schemas/Comment'
         required: true
+      security:
+      - oauth2:
+        - write
       responses:
         '201':
           content:
@@ -177,6 +200,9 @@ paths:
         required: true
       tags:
       - comments
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -207,6 +233,9 @@ paths:
             schema:
               $ref: '#/components/schemas/Comment'
         required: true
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -236,6 +265,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedComment'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -254,6 +286,9 @@ paths:
         required: true
       tags:
       - comments
+      security:
+      - oauth2:
+        - write
       responses:
         '204':
           description: No response body
@@ -355,6 +390,11 @@ paths:
           type: string
       tags:
       - cuppingsessions
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - cuppingsessions:read
       responses:
         '200':
           content:
@@ -378,6 +418,11 @@ paths:
             schema:
               $ref: '#/components/schemas/CuppingSession'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - cuppingsessions:write
       responses:
         '201':
           content:
@@ -398,6 +443,11 @@ paths:
         required: true
       tags:
       - cuppingsessions
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - cuppingsessions:read
       responses:
         '200':
           content:
@@ -428,6 +478,11 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedCuppingSession'
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - cuppingsessions:write
       responses:
         '200':
           content:
@@ -521,6 +576,9 @@ paths:
           type: string
       tags:
       - customers
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -540,6 +598,9 @@ paths:
         required: true
       tags:
       - customers
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -570,6 +631,9 @@ paths:
             schema:
               $ref: '#/components/schemas/Customer'
         required: true
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -599,6 +663,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedCustomer'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -761,6 +828,11 @@ paths:
           type: string
       tags:
       - inventories
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - inventories:read
       responses:
         '200':
           content:
@@ -784,6 +856,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Inventory'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - inventories:write
       responses:
         '201':
           content:
@@ -803,6 +880,11 @@ paths:
         required: true
       tags:
       - inventories
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - inventories:read
       responses:
         '200':
           content:
@@ -833,6 +915,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Inventory'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - inventories:write
       responses:
         '200':
           content:
@@ -862,6 +949,11 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedInventory'
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - inventories:write
       responses:
         '200':
           content:
@@ -880,6 +972,11 @@ paths:
         required: true
       tags:
       - inventories
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - inventories:write
       responses:
         '204':
           description: No response body
@@ -927,6 +1024,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/Invite'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -1043,6 +1143,11 @@ paths:
           type: number
       tags:
       - logs
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -1069,6 +1174,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '201':
           content:
@@ -1088,6 +1198,11 @@ paths:
         required: true
       tags:
       - logs
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -1118,6 +1233,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1147,6 +1267,11 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedLog'
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1165,6 +1290,11 @@ paths:
         required: true
       tags:
       - logs
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '204':
           description: No response body
@@ -1192,6 +1322,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1223,6 +1358,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1243,6 +1383,11 @@ paths:
         required: true
       tags:
       - logs
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -1264,6 +1409,11 @@ paths:
         required: true
       tags:
       - logs
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -1295,6 +1445,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1326,6 +1481,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1350,6 +1510,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1374,6 +1539,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Log'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -1423,6 +1593,9 @@ paths:
           type: string
       tags:
       - machines
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -1442,6 +1615,9 @@ paths:
         required: true
       tags:
       - machines
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -1473,6 +1649,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/BBPProfile'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -1492,6 +1671,9 @@ paths:
         required: true
       tags:
       - machines
+      security:
+      - oauth2:
+        - write
       responses:
         '204':
           description: No response body
@@ -1512,6 +1694,9 @@ paths:
             schema:
               $ref: '#/components/schemas/Machine'
         required: true
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -1565,6 +1750,9 @@ paths:
           type: string
       tags:
       - machineslots
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -1589,6 +1777,9 @@ paths:
             schema:
               $ref: '#/components/schemas/MachineSlot'
         required: true
+      security:
+      - oauth2:
+        - write
       responses:
         '201':
           content:
@@ -1608,6 +1799,9 @@ paths:
         required: true
       tags:
       - machineslots
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -1626,6 +1820,9 @@ paths:
         required: true
       tags:
       - machineslots
+      security:
+      - oauth2:
+        - write
       responses:
         '204':
           description: No response body
@@ -1646,6 +1843,9 @@ paths:
             schema:
               $ref: '#/components/schemas/MachineSlot'
         required: true
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -1670,6 +1870,9 @@ paths:
             schema:
               $ref: '#/components/schemas/MachineSlot'
         required: true
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -1773,6 +1976,11 @@ paths:
           format: uuid
       tags:
       - profiles
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - profiles:read
       responses:
         '200':
           content:
@@ -1796,6 +2004,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '201':
           content:
@@ -1815,6 +2028,11 @@ paths:
         required: true
       tags:
       - profiles
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - profiles:read
       responses:
         '200':
           content:
@@ -1845,6 +2063,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '200':
           content:
@@ -1874,6 +2097,11 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedProfile'
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '200':
           content:
@@ -1892,6 +2120,11 @@ paths:
         required: true
       tags:
       - profiles
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '204':
           description: No response body
@@ -1919,6 +2152,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '200':
           content:
@@ -1950,6 +2188,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '200':
           content:
@@ -1970,6 +2213,11 @@ paths:
         required: true
       tags:
       - profiles
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - profiles:read
       responses:
         '200':
           content:
@@ -1989,6 +2237,11 @@ paths:
         required: true
       tags:
       - profiles
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - profiles:read
       responses:
         '200':
           content:
@@ -2019,6 +2272,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '200':
           content:
@@ -2038,6 +2296,11 @@ paths:
         required: true
       tags:
       - profiles
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '204':
           description: No response body
@@ -2067,6 +2330,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '200':
           content:
@@ -2091,6 +2359,11 @@ paths:
             schema:
               $ref: '#/components/schemas/Profile'
         required: true
+      security:
+      - oauth2:
+        - write
+      - oauth2:
+        - profiles:write
       responses:
         '200':
           content:
@@ -2183,6 +2456,9 @@ paths:
       operationId: two_factor_activate_update
       tags:
       - two_factor
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           description: No response body
@@ -2191,6 +2467,9 @@ paths:
       operationId: two_factor_qrcode_retrieve
       tags:
       - two_factor
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           description: No response body
@@ -2232,6 +2511,9 @@ paths:
           type: string
       tags:
       - users
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -2251,6 +2533,9 @@ paths:
         required: true
       tags:
       - users
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -2280,6 +2565,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/User'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -2309,6 +2597,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/PatchedUser'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -2339,6 +2630,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/User'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -2351,6 +2645,9 @@ paths:
       operationId: users_self_retrieve
       tags:
       - users
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -2374,6 +2671,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/UserSetting'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -2397,6 +2697,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/UserSetting'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -2420,6 +2723,9 @@ paths:
           multipart/form-data:
             schema:
               $ref: '#/components/schemas/UserSetting'
+      security:
+      - oauth2:
+        - write
       responses:
         '200':
           content:
@@ -3023,6 +3329,12 @@ components:
           type: string
           format: uri
           readOnly: true
+        msec:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: -9223372036854775808
+          format: int64
+          nullable: true
         data_type:
           allOf:
           - $ref: '#/components/schemas/DataTypeEnum'
@@ -3090,12 +3402,6 @@ components:
           format: double
           nullable: true
           description: Humidity measured on PCB in percentage
-        msec:
-          type: integer
-          maximum: 9223372036854775807
-          minimum: -9223372036854775808
-          format: int64
-          nullable: true
         rtd0:
           type: number
           format: double
@@ -3654,6 +3960,9 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
+        archived:
+          type: boolean
+          readOnly: true
         machine:
           type: string
           format: uri
@@ -3666,6 +3975,7 @@ components:
           format: uri
           nullable: true
       required:
+      - archived
       - drop_timestamp
       - end_drum_temp
       - end_temp
@@ -3725,9 +4035,6 @@ components:
           type: string
           maxLength: 200
           pattern: ^[-a-zA-Z0-9_]+$
-        notes:
-          type: string
-          nullable: true
         next_batch_no:
           type: integer
           maximum: 2147483647
@@ -4594,6 +4901,9 @@ components:
           type: integer
           maximum: 2147483647
           minimum: -2147483648
+        archived:
+          type: boolean
+          readOnly: true
         machine:
           type: string
           format: uri
@@ -5023,6 +5333,9 @@ components:
         has_pressure:
           type: boolean
           description: Pressure sensor
+        has_flow_rate:
+          type: boolean
+          description: Flow rate sensor
         has_reversible_drum:
           type: boolean
           description: Can roast in reversed direction
@@ -5210,3 +5523,7 @@ components:
       description: |-
         * `0` - Grams/kilograms
         * `1` - Ounces/pounds
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows: {}
