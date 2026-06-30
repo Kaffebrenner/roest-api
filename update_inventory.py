@@ -37,11 +37,15 @@ except requests.exceptions.HTTPError as err:
     raise SystemExit(err) from err
 
 access_token = r.json()["access_token"]
+headers = {
+    "Authorization": f"Bearer {access_token}",
+    "Accept": "application/json; version=1.0",
+}
 
 try:
     r = requests.get(
         f"{API_HOST}/users/self/",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         timeout=10,
     )
     r.raise_for_status()
@@ -54,7 +58,7 @@ customer_id = r.json()["customers"][0]["id"]
 try:
     r = requests.get(
         f"{API_HOST}/inventories/?customer={customer_id}&is_archived=false&search={args.search_term}",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         timeout=10,
     )
     r.raise_for_status()
@@ -83,7 +87,7 @@ inventory_name = inventory_item.get("name", "Unknown")
 try:
     r = requests.patch(
         f"{API_HOST}/inventories/{inventory_id}/",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         json={
             "current_weight": args.current_weight,
         },

@@ -36,11 +36,15 @@ except requests.exceptions.HTTPError as err:
     raise SystemExit(err) from err
 
 access_token = r.json()["access_token"]
+headers = {
+    "Authorization": f"Bearer {access_token}",
+    "Accept": "application/json; version=1.0",
+}
 
 try:
     r = requests.get(
         f"{API_HOST}/users/self/",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         timeout=10,
     )
     r.raise_for_status()
@@ -78,7 +82,7 @@ class EndCondition(IntEnum):
 try:
     r = requests.post(
         f"{API_HOST}/profiles/",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         json={
             "name": "name of the profile",
             "notes": "profile description goes here",
@@ -111,7 +115,7 @@ print(f"Created profile with id {profile_id}")
 try:
     r = requests.patch(
         f"{API_HOST}/profiles/{profile_id}/",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         json={
             "temperature_bezier": [[0, 240], [360000, 270]],
             "end_condition": EndCondition.TOTAL_TIME,
@@ -132,7 +136,7 @@ print(f"Updated profile with id {profile_id}")
 try:
     r = requests.put(
         f"{API_HOST}/profiles/{profile_id}/enable_share/",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         timeout=10,
     )
     r.raise_for_status()

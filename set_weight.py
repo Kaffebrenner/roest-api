@@ -1,8 +1,8 @@
 #!/usr/bin/python
 
 import argparse
-from enum import IntEnum
 import os
+from enum import IntEnum
 
 import requests
 
@@ -37,11 +37,15 @@ except requests.exceptions.HTTPError as err:
     raise SystemExit(err) from err
 
 access_token = r.json()["access_token"]
+headers = {
+    "Authorization": f"Bearer {access_token}",
+    "Accept": "application/json; version=1.0",
+}
 
 try:
     r = requests.get(
         f"{API_HOST}/machines/?slug={args.machine_slug}&page_size=all",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         timeout=10,
     )
     r.raise_for_status()
@@ -63,7 +67,7 @@ class EventFlags(IntEnum):
 try:
     r = requests.get(
         f"{API_HOST}/logs/?event_flags={EventFlags.DROP}&machine={machine_id}&page_size=3",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         timeout=10,
     )
     r.raise_for_status()
@@ -77,7 +81,7 @@ start_weight = r.json()["results"][0]["start_weight"]
 try:
     r = requests.post(
         f"{API_HOST}/logs/{log_id}/weights/",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         json={
             "start_weight": start_weight,
             "end_weight": args.end_weight,

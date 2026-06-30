@@ -39,11 +39,15 @@ except requests.exceptions.HTTPError as err:
     raise SystemExit(err) from err
 
 access_token = r.json()["access_token"]
+headers = {
+    "Authorization": f"Bearer {access_token}",
+    "Accept": "application/json; version=1.0",
+}
 
 try:
     r = requests.get(
         f"{API_HOST}/machines/?slug={args.machine_slug}&page_size=all",
-        headers={"Authorization": f"Bearer {access_token}"},
+        headers=headers,
         timeout=10,
     )
     r.raise_for_status()

@@ -14,3 +14,6 @@
 - The service can throttle clients performing an excessive number of requests
   in a short period of time. Clients should implement back-off strategies if
   the client receives HTTP code 429 Too Many Requests.
+- The service expects an API version number in the Accept header with the
+  format "Accept: application/json; version=1.0". This field will be made
+  mandatory in the future.
