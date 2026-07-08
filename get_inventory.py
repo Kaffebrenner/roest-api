@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import argparse
+import json
 import os
 
 import requests
@@ -62,4 +63,4 @@ except requests.exceptions.HTTPError as err:
     print(err.response.text)
     raise SystemExit(err) from err
 
-print(r.json())
+print(json.dumps(r.json(), indent=4))
