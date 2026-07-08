@@ -34,6 +34,9 @@ store them in the .env file.
 
     ./run.sh create_profile.py
 
+    ./run.sh export_logs.py p3000-rXX-YY
+
+
 ## View OpenAPI schema
 
 Start a swagger server that serves the specification documentation:
