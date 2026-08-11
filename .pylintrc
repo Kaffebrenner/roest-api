@@ -1,0 +1,5 @@
+[MASTER]
+ignore-paths=.venv
+
+[MESSAGES CONTROL]
+disable=missing-module-docstring,missing-class-docstring,missing-function-docstring
