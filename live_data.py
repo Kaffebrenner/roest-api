@@ -3,7 +3,6 @@
 import argparse
 import json
 import os
-from venv import logger
 
 import paho.mqtt.client as mqtt
 import requests
