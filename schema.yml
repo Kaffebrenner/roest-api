@@ -155,6 +155,8 @@ paths:
       security:
       - oauth2:
         - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -181,6 +183,8 @@ paths:
       security:
       - oauth2:
         - write
+      - oauth2:
+        - logs:write
       responses:
         '201':
           content:
@@ -203,6 +207,8 @@ paths:
       security:
       - oauth2:
         - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -236,6 +242,8 @@ paths:
       security:
       - oauth2:
         - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -268,6 +276,8 @@ paths:
       security:
       - oauth2:
         - write
+      - oauth2:
+        - logs:write
       responses:
         '200':
           content:
@@ -289,6 +299,8 @@ paths:
       security:
       - oauth2:
         - write
+      - oauth2:
+        - logs:write
       responses:
         '204':
           description: No response body
@@ -322,6 +334,11 @@ paths:
           type: string
       tags:
       - cuppingforms
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - cuppingsessions:read
       responses:
         '200':
           content:
@@ -341,6 +358,11 @@ paths:
         required: true
       tags:
       - cuppingforms
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - cuppingsessions:read
       responses:
         '200':
           content:
@@ -712,6 +734,11 @@ paths:
           format: uuid
       tags:
       - datapoints
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -731,6 +758,11 @@ paths:
         required: true
       tags:
       - datapoints
+      security:
+      - oauth2:
+        - read
+      - oauth2:
+        - logs:read
       responses:
         '200':
           content:
@@ -768,6 +800,9 @@ paths:
           type: string
       tags:
       - flatpages
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -787,6 +822,9 @@ paths:
         required: true
       tags:
       - flatpages
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -1769,13 +1807,13 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotCreate'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotCreate'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotCreate'
         required: true
       security:
       - oauth2:
@@ -1809,39 +1847,39 @@ paths:
               schema:
                 $ref: '#/components/schemas/MachineSlot'
           description: ''
-    delete:
-      operationId: machineslots_destroy
-      parameters:
-      - in: path
-        name: id
-        schema:
-          type: integer
-        description: A unique integer value identifying this machine slot.
-        required: true
-      tags:
-      - machineslots
-      security:
-      - oauth2:
-        - write
-      responses:
-        '204':
-          description: No response body
   /machineslots/assign/:
     post:
       operationId: machineslots_assign_create
+      parameters:
+      - in: query
+        name: machine
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
       tags:
       - machineslots
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotAssign'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotAssign'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotAssign'
         required: true
       security:
       - oauth2:
@@ -1851,24 +1889,43 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MachineSlot'
+                type: array
+                items:
+                  $ref: '#/components/schemas/MachineSlot'
           description: ''
   /machineslots/unassign/:
     post:
       operationId: machineslots_unassign_create
+      parameters:
+      - in: query
+        name: machine
+        schema:
+          type: integer
+      - name: ordering
+        required: false
+        in: query
+        description: Which field to use when ordering the results.
+        schema:
+          type: string
+      - name: search
+        required: false
+        in: query
+        description: A search term.
+        schema:
+          type: string
       tags:
       - machineslots
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotUnassign'
           application/x-www-form-urlencoded:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotUnassign'
           multipart/form-data:
             schema:
-              $ref: '#/components/schemas/MachineSlot'
+              $ref: '#/components/schemas/MachineSlotUnassign'
         required: true
       security:
       - oauth2:
@@ -1878,7 +1935,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MachineSlot'
+                type: array
+                items:
+                  $ref: '#/components/schemas/MachineSlot'
           description: ''
   /pcbs/self/:
     get:
@@ -1916,7 +1975,7 @@ paths:
 
           * `0` - S100/L100
           * `1` - P3000
-          * `2` - S100/L100 p17
+          * `2` - S200/L200
         explode: true
         style: form
       - name: ordering
@@ -2425,6 +2484,9 @@ paths:
           type: string
       tags:
       - systemmessages
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -2444,6 +2506,9 @@ paths:
         required: true
       tags:
       - systemmessages
+      security:
+      - oauth2:
+        - read
       responses:
         '200':
           content:
@@ -2782,6 +2847,9 @@ components:
         name:
           type: string
           maxLength: 255
+        author_name:
+          type: string
+          readOnly: true
         profile_type:
           allOf:
           - $ref: '#/components/schemas/ProfileTypeEnum'
@@ -2845,6 +2913,7 @@ components:
           format: uri
           nullable: true
       required:
+      - author_name
       - created
       - customer
       - id
@@ -3302,6 +3371,11 @@ components:
           type: string
           format: uri
           writeOnly: true
+        share_uuid:
+          type: string
+          format: uuid
+          writeOnly: true
+          nullable: true
         enabled_beta_features:
           type: array
           items:
@@ -3575,7 +3649,7 @@ components:
       properties:
         file_name:
           type: string
-          description: Filename that was upladed to the firmeware store
+          description: Filename that was uploaded to the firmware store
           maxLength: 256
         fw_version:
           type: integer
@@ -3956,6 +4030,7 @@ components:
           type: string
           format: uuid
           nullable: true
+          readOnly: true
         version:
           type: integer
           maximum: 2147483647
@@ -3995,6 +4070,7 @@ components:
       - machine_slug
       - profile_data
       - sensor_config
+      - share_uuid
       - start_timestamp
       - url
     Machine:
@@ -4111,34 +4187,85 @@ components:
           type: string
           format: uri
           readOnly: true
-        requested_profile_data:
-          allOf:
-          - $ref: '#/components/schemas/Profile'
-          readOnly: true
+        machine:
+          type: string
+          format: uri
         slot_index:
           type: integer
           maximum: 65535
           minimum: 0
-        loaded_timestamp:
-          type: string
-          format: date-time
-          nullable: true
-        machine:
-          type: string
-          format: uri
-        loaded_profile:
-          type: string
-          format: uri
-          nullable: true
         requested_profile:
           type: string
           format: uri
           nullable: true
+        requested_profile_data:
+          allOf:
+          - $ref: '#/components/schemas/Profile'
+          readOnly: true
+        loaded_profile:
+          type: string
+          format: uri
+          readOnly: true
+          nullable: true
+        loaded_timestamp:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
       required:
+      - loaded_profile
+      - loaded_timestamp
       - machine
       - requested_profile_data
       - slot_index
       - url
+    MachineSlotAssign:
+      type: object
+      description: Serializer used only for validating input; save() must never be
+        called.
+      properties:
+        machine_id:
+          type: integer
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/SlotAssignment'
+      required:
+      - machine_id
+      - profiles
+    MachineSlotCreate:
+      type: object
+      description: Serializer used only for validating input; save() must never be
+        called.
+      properties:
+        machine:
+          type: string
+          format: uri
+        slot_index:
+          type: integer
+          minimum: 0
+        requested_profile:
+          type: string
+          format: uri
+      required:
+      - machine
+      - requested_profile
+      - slot_index
+    MachineSlotUnassign:
+      type: object
+      description: Serializer used only for validating input; save() must never be
+        called.
+      properties:
+        machine_id:
+          type: integer
+        slots:
+          type: array
+          items:
+            type: integer
+            minimum: 0
+      required:
+      - machine_id
+      - slots
     MachinetypeEnum:
       enum:
       - 0
@@ -4148,7 +4275,7 @@ components:
       description: |-
         * `0` - S100/L100
         * `1` - P3000
-        * `2` - S100/L100 p17
+        * `2` - S200/L200
     MessageTypeEnum:
       enum:
       - 0
@@ -4619,6 +4746,11 @@ components:
           type: string
           format: uri
           writeOnly: true
+        share_uuid:
+          type: string
+          format: uuid
+          writeOnly: true
+          nullable: true
         enabled_beta_features:
           type: array
           items:
@@ -4897,6 +5029,7 @@ components:
           type: string
           format: uuid
           nullable: true
+          readOnly: true
         version:
           type: integer
           maximum: 2147483647
@@ -5061,10 +5194,13 @@ components:
           type: string
           maxLength: 150
         email:
-          type: string
-          format: email
           title: Email address
-          maxLength: 254
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
         is_staff:
           type: boolean
           readOnly: true
@@ -5087,8 +5223,8 @@ components:
       - 0
       - 1
       description: |-
-        * `0` - P Series (S100/L100)
-        * `1` - P2000 Prototype
+        * `0` - S100/L100/S200/L200
+        * `1` - P3000
         * `None` - N/A
     Profile:
       type: object
@@ -5303,7 +5439,7 @@ components:
       properties:
         file_name:
           type: string
-          description: Filename that was upladed to the firmeware store
+          description: Filename that was uploaded to the firmware store
           maxLength: 256
         os_version:
           type: integer
@@ -5352,6 +5488,19 @@ components:
           readOnly: true
       required:
       - enabled_sensors
+    SlotAssignment:
+      type: object
+      description: Serializer used only for validating input; save() must never be
+        called.
+      properties:
+        id:
+          type: integer
+        machine_slot_index:
+          type: integer
+          minimum: 0
+      required:
+      - id
+      - machine_slot_index
     SystemMessage:
       type: object
       properties:
@@ -5408,10 +5557,13 @@ components:
           type: string
           maxLength: 150
         email:
-          type: string
-          format: email
           title: Email address
-          maxLength: 254
+          oneOf:
+          - type: string
+            format: email
+            maxLength: 254
+          - type: string
+            maxLength: 0
         is_staff:
           type: boolean
           readOnly: true
